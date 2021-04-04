@@ -6,5 +6,11 @@ module fpga_computer (
     logic clock;
     prescaler prescaler(.clock_in(CLK), .clock_out(clock));
 
-    assign LEDR = clock;
+    logic reset;
+    assign reset  = ~KEY;
+
+    logic led;
+    assign LEDR = led;
+
+    cpu cpu(.clock, .reset, .led);
 endmodule
