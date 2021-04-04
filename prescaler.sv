@@ -9,7 +9,9 @@ module prescaler (
             counter = 32'd0;
             clock_out = ~clock_out;
         end 
-        else counter = counter + 32'd1;
+        else begin
+            counter = counter + 32'd1;
+        end
     end
 
 endmodule
