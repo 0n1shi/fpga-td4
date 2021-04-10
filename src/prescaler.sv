@@ -5,7 +5,7 @@ module prescaler (
     logic [31:0] counter;
 
     always_ff @(posedge clock_in) begin
-        if (counter == 32'd24_999_999) begin
+        if (counter == 32'd10_000_000 - 1) begin
             counter = 32'd0;
             clock_out = ~clock_out;
         end 
