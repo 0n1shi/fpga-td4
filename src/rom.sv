@@ -9,7 +9,7 @@ module rom (
 );
     always_comb begin
         case (address)
-            // increment "b" register 0 ~ 16 ?
+            // increment "b" register from 0 to 16
             4'b0000: data = 8'b01110000; // mov b, 0
             4'b0001: data = 8'b10010000; // out b
             4'b0010: data = 8'b01010001; // add b, 1
