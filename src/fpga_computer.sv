@@ -7,24 +7,26 @@ module fpga_computer (
     input   logic           CLK,
     input   logic [0:0]     KEY,    // 1 push button
     input   logic [3:0]     SW,     // 4 slide switches
-    //output  logic [3:0]     LEDR,   // 4 leds
+    output  logic [0:0]     LEDR,   // led
     output  logic [6:0]     HEX0,   // 1st 7 seg led
     output  logic [6:0]     HEX1    // 2nd 7 seg led
 );
-    // I/Os
+    // 1Hz clock
     logic clock;
     prescaler prescaler(.clock_in(CLK), .clock_out(clock));
 
-    logic reset;
-    assign reset  = ~KEY;
+    assign LEDR = clock; // debug
 
-    logic [3:0] led;
-    //assign LEDR = led;
+    // push button to reset
+    logic reset;
+    assign reset = ~KEY;
+
+    // I/O
+    logic [3:0] switch; // slide switch for input
+    assign switch = SW;
+    logic [3:0] led; // 7 seg led for output
     seg7 hex0(.in(led % 10), .out(HEX0));
     seg7 hex1(.in(led / 10), .out(HEX1));
-
-    logic [3:0] switch;
-    assign switch = SW;
 
     mother_board mother_board(.clock, .reset, .switch, .led);
 endmodule

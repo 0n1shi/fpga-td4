@@ -62,8 +62,8 @@ module cpu (
             4'b0100: next_b = a;                    // mov b, a
             4'b1111: next_ip = imm;                 // jmp imm
             4'b1110: next_ip = cf ? ip + '1 : imm;  // jnc imm
-            4'b0010: next_a = switch;               // in a
-            4'b0110: next_b = switch;               // in b
+            4'b0010: next_a = io_in;                // in a
+            4'b0110: next_b = io_in;                // in b
             4'b1001: next_out = b;                  // out b
             4'b1011: next_out = imm;                // out imm
         endcase
