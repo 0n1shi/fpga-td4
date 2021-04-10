@@ -1,3 +1,8 @@
+/**
+ * @name: mother_board.sv
+ * @desc: mother board to connect cpu, memory and so on.
+ */
+
 module mother_board (
     input   logic       clock,
     input   logic       reset,

@@ -1,9 +1,13 @@
-// top module
+/**
+ * @name: fpga_computer.sv
+ * @desc: top module
+ */
+
 module fpga_computer (
     input   logic           CLK,
     input   logic [0:0]     KEY,    // 1 push button
     input   logic [3:0]     SW,     // 4 slide switches
-    output  logic [3:0]     LEDR,   // 4 leds
+    //output  logic [3:0]     LEDR,   // 4 leds
     output  logic [6:0]     HEX0,   // 1st 7 seg led
     output  logic [6:0]     HEX1    // 2nd 7 seg led
 );

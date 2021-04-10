@@ -1,3 +1,8 @@
+/**
+ * @name: seg7.sv
+ * @desc: 3 bit input to 7 seg led output
+ */
+
 module seg7(
     input   logic [3:0] in,
     output  logic [6:0] out 

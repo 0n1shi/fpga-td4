@@ -1,3 +1,8 @@
+/**
+ * @name: cpu.sv
+ * @desc: cpu has 4 bit address bus, 8 bit data bus, 4 bit switch input and 4 bit output.
+ */
+
 module cpu (
     input   logic       clock,
     input   logic       reset,
@@ -5,8 +10,8 @@ module cpu (
     output  logic [3:0] address,
     input   logic [7:0] data,
 
-    input   logic [3:0] switch,
-    output  logic [3:0] led
+    input   logic [3:0] io_in,
+    output  logic [3:0] io_out
 );
     // registers
     logic [3:0] a,      next_a;     // 4 bit general register
@@ -33,19 +38,21 @@ module cpu (
         end
     end
 
+    // handle instruction
     logic [3:0] opcode, imm;
     assign opcode   = data[7:4]; // upper 4 bit of data
     assign imm      = data[3:0]; // lower 4 bit of data
     assign address  = ip;
-    assign led      = out;
+    assign io_out   = out;
 
     always_comb begin
         next_a      = a;            // next value
         next_b      = b;            // next value
         next_cf     = '0;           // reset
         next_ip     = ip + 4'd1;    // increment
-        next_out    = out;          // keep LED state
+        next_out    = out;          // keep I/O out state
 
+        // opcode list
         unique case (opcode)
             4'b0000: {next_cf, next_a} = a + imm;   // add a, imm
             4'b0101: {next_cf, next_b} = b + imm;   // add b, imm

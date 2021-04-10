@@ -1,3 +1,8 @@
+/**
+ * @name: rom.sv
+ * @desc: ROM which has 3 bit address bus and 8 bit data bus
+ */
+
 module rom (
     input   logic [3:0] address,    // 4 bit address bus
     output  logic [7:0] data        // 8 bit data bus
