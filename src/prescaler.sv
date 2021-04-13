@@ -3,7 +3,7 @@
  * @desc: convert 100MHz clock to 1Hz clock
  */
 
-module prescaler (
+module prescaler #(parameter RATIO = 2) (
     input   logic clock_in,
     output  logic clock_out
 );
@@ -13,7 +13,7 @@ module prescaler (
     
     // reset count every 50M clocks
     logic next_edge;
-    assign next_edge = (counter == (32'd100_000_000 / 2 - 1)); 
+    assign next_edge = (counter == (RATIO / 2 - 1)); 
     assign next_counter = next_edge ? 'd0 : counter + 'd1;
 
     logic next_clock_out;

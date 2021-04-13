@@ -13,7 +13,7 @@ module fpga_computer (
 );
     // 1Hz clock
     logic clock;
-    prescaler prescaler(.clock_in(CLK), .clock_out(clock));
+    prescaler #(.RATIO(2)) prescaler(.clock_in(CLK), .clock_out(clock));
 
     assign LEDR = clock; // debug
 
