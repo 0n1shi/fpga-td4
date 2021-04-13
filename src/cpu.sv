@@ -14,11 +14,11 @@ module cpu (
     output  logic [3:0] io_out
 );
     // registers
-    logic [3:0] a,      next_a;     // 4 bit general register
-    logic [3:0] b,      next_b;     // 4 bit general register
-    logic       cf,     next_cf;    // carry flag
-    logic [3:0] ip,     next_ip;    // instruction pointer
-    logic [3:0] out,    next_out;   // I/O out
+    logic [3:0] a   = 4'd0,     next_a      = 4'd0;  // 4 bit general register
+    logic [3:0] b   = 4'd0,     next_b      = 4'd0;  // 4 bit general register
+    logic       cf  = 1'd0,     next_cf     = 1'd0; // carry flag
+    logic [3:0] ip  = 4'd0,     next_ip     = 4'd0; // instruction pointer
+    logic [3:0] out = 4'd0,     next_out    = 4'd0; // I/O out
 
     // reset or update registers
     always_ff @(posedge clock) begin

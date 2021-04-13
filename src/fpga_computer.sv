@@ -12,19 +12,19 @@ module fpga_computer (
     output  logic [6:0]     HEX1    // 2nd 7 seg led
 );
     // 1Hz clock
-    logic clock;
+    logic clock = 1'd0;
     prescaler #(.RATIO(2)) prescaler(.clock_in(CLK), .clock_out(clock));
 
     assign LEDR = clock; // debug
 
     // push button to reset
-    logic reset;
-    assign reset = ~KEY;
+    logic   reset;
+    assign  reset = ~KEY;
 
     // I/O
-    logic [3:0] switch; // slide switch for input
-    assign switch = SW;
-    logic [3:0] led; // 7 seg led for output
+    logic [3:0] switch;         // slide switch for input
+    assign      switch  = SW;
+    logic [3:0] led     = 4'd0; // 7 seg led for output
     seg7 hex0(.in(led % 10), .out(HEX0));
     seg7 hex1(.in(led / 10), .out(HEX1));
 
