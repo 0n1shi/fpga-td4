@@ -3,8 +3,11 @@ from typing import List
 
 args = sys.argv
 
-def dec2bin(num: str) -> str:
-    return bin(int(num))[2:].zfill(4)
+def num2opcode(num: int) -> int:
+    return int(num) << 4
+
+def dec2bin(num: str, width: int) -> str:
+    return bin(num)[2:].zfill(width)
 
 def tokenize(opcode, operands: str) -> List[str]:
     if opcode == 'mov' or opcode == 'add':
@@ -15,53 +18,55 @@ def tokenize(opcode, operands: str) -> List[str]:
 
 def compile_asm(tokens: List[str]) -> str:
     # "mov" or "add"
-    if len(tokens) == 3: 
+    if len(tokens) == 3:
         opcode, first, second = tokens
         if opcode == 'mov':
             if first == 'a':
-                if second == 'b': 
+                if second == 'b':
                     # mov a, b
-                    return '0001' + '0000'
+                    return num2opcode(0b0001) + 0b0000
                 else:
                     # mov a, imm
-                    return '0011' + dec2bin(second)
+                    return num2opcode(0b0011) + int(second)
             if first == 'b':
                 if second == 'a':
                     # mov b, a
-                    return '0100' + '0000'
+                    return num2opcode(0b0100) + 0b0000
                 else:
                     # mov b, imm
-                    return '0111' + dec2bin(second)
+                    return num2opcode(0b0111) + int(second)
         if opcode == 'add':
             if first == 'a':
                 # add a, imm
-                return '0000' + dec2bint(second)
+                return num2opcode(0b0000) + int(second)
             if first == 'b':
                 # add b, imm
-                return '0101' + dec2bin(second)
+                return num2opcode(0b0101) + int(second)
     # "in" or "out" or "jmp" or "jnc"
     elif len(tokens) == 2:
         opcode, first = tokens
         if opcode == 'in':
             if first == 'a':
                 # in a
-                return '0010' + '0000'
+                return num2opcode(0b0010) + 0b0000
             if first == 'b':
                 # in b
-                return '0110' + '0000'
+                return num2opcode(0b0110) + 0b0000
         if opcode == 'out':
             if first == 'b':
                 # out b
-                return '1001' + '0000'
+                return num2opcode(0b1001) + 0b0000
             else:
                 # out imm
-                return '1011' + dec2bin(first)
+                return num2opcode(0b1011) + int(first)
         if opcode == 'jmp':
             # jmp imm
-            return '1111' + dec2bin(first)
+            return num2opcode(0b1111) + int(first)
         if opcode == 'jnc':
             # inc imm
-            return '1110' + dec2bin(first)
+            return num2opcode(0b1110) + int(first)
+
+def 
 
 if __name__ == '__main__':
     # read assembly
@@ -69,6 +74,7 @@ if __name__ == '__main__':
     fd = open(asm)
     lines = fd.readlines()
 
+    code_list = []
     for line in lines:
         # get opcode and operands
         items = line.rstrip().split(' ', 1)
@@ -79,4 +85,6 @@ if __name__ == '__main__':
 
         tokens = tokenize(opcode, operands)
         code = compile_asm(tokens)
-        print("8'0b" + code)
+        code_list.append(code)
+    
+    
