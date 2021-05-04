@@ -1,5 +1,3 @@
-# cpu on FPGA
+# 4 bit CPU on FPGA
 
-CPU runs on FPGA.
-
-## Refs
+CPU which runs on FPGA. The architecure is RISC, 4-bit cpu "TD4".
